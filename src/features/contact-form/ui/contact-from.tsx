@@ -8,7 +8,7 @@ import { contactFormSchema } from '../const/contact-form.validate';
 import { validate } from '../../../shared/lib/utils/validations';
 
 import { api } from '../../../shared/api/config';
-import type { IResponseForm } from '../../../../api/contact/post';
+import type { IResponseForm } from '../../../../api/contact';
 
 interface IContactFromProps extends BoxProps {
   onSetMessage: (message: string | null) => void;
