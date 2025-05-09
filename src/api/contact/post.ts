@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import type { IFormContact } from '../features/contact-form/ui/contact-from';
+import type { IFormContact } from '../../features/contact-form/ui/contact-from';
+
 
 export interface IResponseForm {
   message: string, 
