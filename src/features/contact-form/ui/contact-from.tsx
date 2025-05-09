@@ -8,7 +8,7 @@ import { contactFormSchema } from '../const/contact-form.validate';
 import { validate } from '../../../shared/lib/utils/validations';
 
 interface IContactFromProps extends BoxProps {
-  onSubmitForm?: () => void;
+  onSubmitForm: () => void;
 }
 
 interface IFormContact {
@@ -32,6 +32,8 @@ export const ContactFrom = ({ onSubmitForm, ...props }: IContactFromProps) => {
 
   const handleSubmitForm = async(evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+
+    setIsLoading(false);
     
     const resultsValidationForm = await validate(form, contactFormSchema);
 
@@ -43,6 +45,8 @@ export const ContactFrom = ({ onSubmitForm, ...props }: IContactFromProps) => {
 
       return;
     }
+
+    onSubmitForm();
   }
 
   const handleInputNameChange = (value: string) => {
