@@ -3,9 +3,15 @@ import { mTablet } from "../../../config/style/globalMixins";
 import { LinkButton } from "../../../shared/ui/link-button";
 import { Link } from "react-router-dom";
 
-export const ContainerHeader = styled.header`
+export const HeaderWrapper = styled.header`
   position: sticky;
+  top: 0;
+  z-index: 10;
 
+  background-color: white;
+`
+
+export const ContainerHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;

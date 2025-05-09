@@ -7,12 +7,7 @@ import { ContactContainerForm, ContactContainerRow, ContactFormButton, ContactFo
 import { contactFormSchema } from '../const/contact-form.validate';
 import { validate } from '../../../shared/lib/utils/validations';
 
-import { api } from '../../../shared/api/config';
-
-interface IResponseForm {
-  message: string;
-  success: boolean;
-}
+import { contactPost } from '../../../entities/contact/api/contact-post';
 
 interface IContactFromProps extends BoxProps {
   onSetMessage: (message: string | null) => void;
@@ -37,13 +32,31 @@ export const ContactFrom = ({ onSetMessage, ...props }: IContactFromProps) => {
 
   const disabled = isLoading || Boolean(errorName || errorEmail || errorMessage);
 
+
+  const handleInputNameChange = (value: string) => {
+    setForm({...form, name: value});
+
+    setErrorName(null);
+  }
+
+  const handleInputEmailChange = (value: string) => {
+    setForm({...form, email: value});
+
+    setErrorEmail(null);
+  }
+
+  const handleInputMessageChange = (value: string) => {
+    setForm({...form, message: value});
+
+    setErrorMessage(null);
+  }
+
   const handleSendForm = async(form: IFormContact) => {
     try {
-      const {data} = await api.post<IResponseForm>("contact", form)
+      const message = await contactPost(form);
 
-      onSetMessage(data.message);
+      onSetMessage(message);
     } catch {
-      console.log("test")
       onSetMessage(null);
     }
   }
@@ -69,24 +82,6 @@ export const ContactFrom = ({ onSetMessage, ...props }: IContactFromProps) => {
     setIsLoading(false);
   }
 
-  const handleInputNameChange = (value: string) => {
-    setForm({...form, name: value});
-
-    setErrorName(null);
-  }
-
-  const handleInputEmailChange = (value: string) => {
-    setForm({...form, email: value});
-
-    setErrorEmail(null);
-  }
-
-  const handleInputMessageChange = (value: string) => {
-    setForm({...form, message: value});
-
-    setErrorMessage(null);
-  }
-
   return (
     <form onSubmit={handleSubmitForm}>
       <ContactContainerForm sx={{...props}}>
@@ -99,6 +94,7 @@ export const ContactFrom = ({ onSetMessage, ...props }: IContactFromProps) => {
             value={form.name}
             helperText={errorName}
             onChange={(evt) => handleInputNameChange(evt.target.value)}
+            disabled={isLoading}
           />
         </ContactContainerRow>
         <ContactContainerRow>
@@ -110,6 +106,7 @@ export const ContactFrom = ({ onSetMessage, ...props }: IContactFromProps) => {
             variant="outlined"
             helperText={errorEmail}
             onChange={(evt) => handleInputEmailChange(evt.target.value)}
+            disabled={isLoading}
           />
         </ContactContainerRow>
         <ContactContainerRow>
@@ -123,6 +120,7 @@ export const ContactFrom = ({ onSetMessage, ...props }: IContactFromProps) => {
             variant="outlined"
             helperText={errorMessage}
             onChange={(evt) => handleInputMessageChange(evt.target.value)}
+            disabled={isLoading}
           />
         </ContactContainerRow>
 

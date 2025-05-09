@@ -31,4 +31,11 @@ export const ContactFormButton = styled(Button)`
   padding: 6px 55px !important;
   border-radius: 6px !important;
   color: white !important;
+
+  transition: all 0.5 ease !important;
+
+  &:hover,
+  :focus {
+    background-color: green !important;
+  }
 `
