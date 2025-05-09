@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://cadex-task-fyct.vercel.app/";
+const baseURL = "https://cadex-task-fyct.vercel.app/api/";
 
 const createApi = () => {
   const api = axios.create({
