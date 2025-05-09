@@ -13,6 +13,7 @@ interface IResponseForm {
   message: string;
   success: boolean;
 }
+
 interface IContactFromProps extends BoxProps {
   onSetMessage: (message: string | null) => void;
 }
