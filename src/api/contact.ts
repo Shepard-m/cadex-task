@@ -1,9 +1,9 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { IFormContact } from '../features/contact-form/ui/contact-from';
 
-interface RequestBody {
-  name: string;
-  email: string;
-  message: string;
+export interface IResponseForm {
+  message: string, 
+  success: boolean
 }
 
 export default async function handler(
@@ -20,7 +20,7 @@ export default async function handler(
       return res.status(400).json({ message: 'Invalid request body' });
     }
 
-    const { name, email, message } = req.body as RequestBody;
+    const { name, email, message } = req.body as IFormContact;
     
     // Валидация обязательных полей
     if (!name || !email || !message) {

@@ -4,6 +4,8 @@ import { LinkButton } from "../../../shared/ui/link-button";
 import { Link } from "react-router-dom";
 
 export const ContainerHeader = styled.header`
+  position: sticky;
+
   display: flex;
   justify-content: space-between;
   align-items: center;

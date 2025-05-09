@@ -1,9 +1,6 @@
 import { FooterContainer, FooterTitle } from "./footer.style";
 
-interface IFooterProps {
-}
-
-export const Footer = ({}: IFooterProps) => {
+export const Footer = () => {
 
   return (
     <FooterContainer>

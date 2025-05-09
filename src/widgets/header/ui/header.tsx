@@ -1,10 +1,7 @@
 import { AppRoute } from "../../../shared/consts/app-routes";
 import { ContactButton, ContainerHeader, Logo } from "./header.style";
 
-interface IHeaderProps {
-}
-
-export const Header = ({}: IHeaderProps) => {
+export const Header = () => {
 
   return (
     <ContainerHeader>

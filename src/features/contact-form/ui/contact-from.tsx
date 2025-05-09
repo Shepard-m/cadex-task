@@ -6,18 +6,20 @@ import {
 import { ContactContainerForm, ContactContainerRow, ContactFormButton, ContactFormInput } from './contact-from.style';
 import { contactFormSchema } from '../const/contact-form.validate';
 import { validate } from '../../../shared/lib/utils/validations';
+import type { IResponseForm } from '../../../api/contact';
+import { api } from '../../../shared/api/config';
 
 interface IContactFromProps extends BoxProps {
-  onSubmitForm: () => void;
+  onSetMessage: (message: string | null) => void;
 }
 
-interface IFormContact {
+export interface IFormContact {
   name: string;
   email: string;
   message: string;
 }
 
-export const ContactFrom = ({ onSubmitForm, ...props }: IContactFromProps) => {
+export const ContactFrom = ({ onSetMessage, ...props }: IContactFromProps) => {
   const [form, setForm] = useState<IFormContact>({
     name: "",
     email: "",
@@ -30,11 +32,20 @@ export const ContactFrom = ({ onSubmitForm, ...props }: IContactFromProps) => {
 
   const disabled = isLoading || Boolean(errorName || errorEmail || errorMessage);
 
+  const handleSendForm = async(form: IFormContact) => {
+    try {
+      const {data} = await api.post<IResponseForm>("contact", form)
+
+      onSetMessage(data.message);
+    } catch {
+      console.log("test")
+      onSetMessage(null);
+    }
+  }
+
   const handleSubmitForm = async(evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    setIsLoading(false);
-    
     const resultsValidationForm = await validate(form, contactFormSchema);
 
     if (!resultsValidationForm.isValid) {
@@ -46,7 +57,11 @@ export const ContactFrom = ({ onSubmitForm, ...props }: IContactFromProps) => {
       return;
     }
 
-    onSubmitForm();
+    setIsLoading(true);
+
+    await handleSendForm(form);
+
+    setIsLoading(false);
   }
 
   const handleInputNameChange = (value: string) => {
