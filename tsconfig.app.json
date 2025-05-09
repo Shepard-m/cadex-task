@@ -9,11 +9,13 @@
     "types": ["@vercel/node"],
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node16",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
-    "noEmit": true,
+    "noEmit": false,
+    "rootDir": ".",
+    "outDir": "./dist",
     "jsx": "react-jsx",
 
     /* Linting */
@@ -24,5 +26,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "api/contact", "api/contact/index.ts"]
+  "include": ["src", "api"],
+  "exclude": ["node_modules"]
 }
