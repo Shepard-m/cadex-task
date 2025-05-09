@@ -15,6 +15,9 @@ export default async function POST(
   req: VercelRequest,
   res: VercelResponse
 ) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'POST') {
     try {
       const { name, email, message } = req.body;
