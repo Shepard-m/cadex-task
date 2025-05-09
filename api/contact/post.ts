@@ -7,7 +7,7 @@ export interface IResponseForm {
   success: boolean
 }
 
-export default async function handler(
+export default async function POST(
   req: VercelRequest,
   res: VercelResponse
 ) {
